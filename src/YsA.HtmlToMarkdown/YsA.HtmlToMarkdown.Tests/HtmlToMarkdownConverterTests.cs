@@ -72,5 +72,55 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("[Link title](http://blog.house-of-code.com)"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsImageTag_ReplaceImageTagWithMarkdown()
+		{
+			const string html = "<img src=\"http://blog.house-of-code.com/profile/profile-img.png\" alt='image title'/>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("![image title](http://blog.house-of-code.com/profile/profile-img.png)"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenImageDoesNotHaveSource_ReturnImagePlaceholder()
+		{
+			const string html = "<img alt='image title'/>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("![image title]"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenImageSourceIsEmptu_ReturnImagePlaceholder()
+		{
+			const string html = "<img alt='image title' src=''/>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("![image title]"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenImageDoesNotHaveTitle_ReturnDefaultTitle()
+		{
+			const string html = "<img src=\"http://blog.house-of-code.com/profile/profile-img.png\"/>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("![image](http://blog.house-of-code.com/profile/profile-img.png)"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenImageHasNoSourceOrTitle_ReturnEmptyString()
+		{
+			const string html = "<img/>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.Empty);
+		}
 	}
 }

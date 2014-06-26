@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using YsA.HtmlToMarkdown.HtmlTagConverters;
 
@@ -14,6 +13,7 @@ namespace YsA.HtmlToMarkdown
 	public class HtmlToMarkdownConverter : IHtmlToMarkdownConverter
 	{
 		private const string SourceTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)>(?<content>[\\s\\S]*?)<\\/{0}>";
+		private const string SelfClosingTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)/>";
 		private static readonly Regex AttributeRegex = new Regex("(?<name>[a-zA-Z]+?)=[\"'](?<value>[^'\"]*?)[\"']", RegexOptions.Compiled);
 
 		private readonly IHtmlTagConverter[] _converters;
@@ -23,18 +23,33 @@ namespace YsA.HtmlToMarkdown
 			_converters = new IHtmlTagConverter[]
 			{
 				new ParagraphTagConverter(),
-				new LinkTagConverter()
+				new LinkTagConverter(),
+				new ImageTagConverter()
 			};
 		}
 
 		public string ToMarkdown(string html)
 		{
-			return _converters
-				.Aggregate(html, (current1, converter) => converter
-					.TagPattern
-					.Select(tag => string.Format(SourceTagPatternFormat, tag))
-					.Aggregate(current1, (current, sourceRegex) => 
-						Regex.Replace(current, sourceRegex, x => converter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value)))));
+			var markdown = html;
+
+			foreach (var converter in _converters)
+			{
+				var innerConverter = converter;
+				foreach (var tagRegex in converter.TagPattern.Select(x => string.Format(GetPatternFormat(innerConverter), x)))
+				{
+					markdown = Regex.Replace(markdown, tagRegex,
+						x => innerConverter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value)));
+				}
+			}
+
+			return markdown;
+		}
+
+		private static string GetPatternFormat(IHtmlTagConverter converter)
+		{
+			return converter is ISelfClosingTag
+				? SelfClosingTagPatternFormat
+				: SourceTagPatternFormat;
 		}
 
 		private IDictionary<string, string> CreateAttributes(string attributes)
