@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace YsA.HtmlToMarkdown.HtmlTagConverters
 {
-	public class LinkTagConverter : IHtmlTagConverter
+	internal class LinkTagConverter : IHtmlTagConverter
 	{
 		private const string LinkMarkdownFormat = "[{0}]({1})";
 
