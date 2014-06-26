@@ -122,5 +122,15 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.Empty);
 		}
+
+		[Test]
+		public void ToMarkdown_WhenImageIsNotClosed_ReturnMarkdown()
+		{
+			const string html = "<img src=\"http://blog.house-of-code.com/profile/profile-img.png\" alt='image title'>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("![image title](http://blog.house-of-code.com/profile/profile-img.png)"));
+		}
 	}
 }

@@ -13,7 +13,7 @@ namespace YsA.HtmlToMarkdown
 	public class HtmlToMarkdownConverter : IHtmlToMarkdownConverter
 	{
 		private const string SourceTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)>(?<content>[\\s\\S]*?)<\\/{0}>";
-		private const string SelfClosingTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)/>";
+		private const string SelfClosingTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)>";
 		private static readonly Regex AttributeRegex = new Regex("(?<name>[a-zA-Z]+?)=[\"'](?<value>[^'\"]*?)[\"']", RegexOptions.Compiled);
 
 		private readonly IHtmlTagConverter[] _converters;
