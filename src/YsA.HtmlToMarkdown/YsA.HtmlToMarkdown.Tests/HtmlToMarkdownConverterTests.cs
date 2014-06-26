@@ -132,5 +132,15 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("![image title](http://blog.house-of-code.com/profile/profile-img.png)"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsLineBreaks_ReplaceLineBreaksWithNewLine()
+		{
+			const string html = "<p>Some content<br>new line<br/>another new line</p>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("\n\nSome content\nnew line\nanother new line\n"));
+		}
 	}
 }
