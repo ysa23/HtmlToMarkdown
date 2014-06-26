@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YsA.HtmlToMarkdown", "YsA.HtmlToMarkdown\YsA.HtmlToMarkdown.csproj", "{3AD56BFC-5FB8-448A-B8C5-17817F7575F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YsA.HtmlToMarkdown.Tests", "YsA.HtmlToMarkdown.Tests\YsA.HtmlToMarkdown.Tests.csproj", "{94198C0E-FAF6-415C-97BA-F033BC3B134E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AD56BFC-5FB8-448A-B8C5-17817F7575F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD56BFC-5FB8-448A-B8C5-17817F7575F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD56BFC-5FB8-448A-B8C5-17817F7575F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD56BFC-5FB8-448A-B8C5-17817F7575F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94198C0E-FAF6-415C-97BA-F033BC3B134E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94198C0E-FAF6-415C-97BA-F033BC3B134E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94198C0E-FAF6-415C-97BA-F033BC3B134E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94198C0E-FAF6-415C-97BA-F033BC3B134E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
