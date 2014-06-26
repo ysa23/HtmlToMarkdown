@@ -35,6 +35,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HtmlTagConverters\IHtmlTagConverter.cs" />
+    <Compile Include="HtmlTagConverters\ParagraphTagConverter.cs" />
+    <Compile Include="HtmlToMarkdownConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
