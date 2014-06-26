@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlTagConverters\IHtmlTagConverter.cs" />
+    <Compile Include="HtmlTagConverters\LinkTagConverter.cs" />
     <Compile Include="HtmlTagConverters\ParagraphTagConverter.cs" />
     <Compile Include="HtmlToMarkdownConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,5 +32,45 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("\n\nSome content\n"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainLinkTag_ReplaceLinkTagWithMarkdownLink()
+		{
+			const string html = "<a href='http://blog.house-of-code.com'>Link title</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("[Link title](http://blog.house-of-code.com)"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainLinkTagAndHrefIsInQuates_ReplaceLinkTagWithMarkdownLink()
+		{
+			const string html = "<a href=\"http://blog.house-of-code.com\">Link title</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("[Link title](http://blog.house-of-code.com)"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenLinkTagAsNoHrefAttribute_OnlyReturnContent()
+		{
+			const string html = "<a>Link title</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Link title"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenLinkTagContainsTargetAttribute_IgnoreTargetAttribute()
+		{
+			const string html = "<a href=\"http://blog.house-of-code.com\" target=\"_blank\">Link title</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("[Link title](http://blog.house-of-code.com)"));
+		}
 	}
 }

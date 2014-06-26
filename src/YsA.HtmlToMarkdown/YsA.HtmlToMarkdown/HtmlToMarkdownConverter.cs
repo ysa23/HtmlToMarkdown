@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using YsA.HtmlToMarkdown.HtmlTagConverters;
 
@@ -11,7 +13,8 @@ namespace YsA.HtmlToMarkdown
 
 	public class HtmlToMarkdownConverter : IHtmlToMarkdownConverter
 	{
-		private const string SourceTagPatternFormat = "<{0}\\b([^>]*)>(?<content>[\\s\\S]*?)<\\/{0}>";
+		private const string SourceTagPatternFormat = "<{0}\\b(?<attributes>[^>]*?)>(?<content>[\\s\\S]*?)<\\/{0}>";
+		private static readonly Regex AttributeRegex = new Regex("(?<name>[a-zA-Z]+?)=[\"'](?<value>[^'\"]*?)[\"']", RegexOptions.Compiled);
 
 		private readonly IHtmlTagConverter[] _converters;
 
@@ -19,7 +22,8 @@ namespace YsA.HtmlToMarkdown
 		{
 			_converters = new IHtmlTagConverter[]
 			{
-				new ParagraphTagConverter()
+				new ParagraphTagConverter(),
+				new LinkTagConverter()
 			};
 		}
 
@@ -30,7 +34,14 @@ namespace YsA.HtmlToMarkdown
 					.TagPattern
 					.Select(tag => string.Format(SourceTagPatternFormat, tag))
 					.Aggregate(current1, (current, sourceRegex) => 
-						Regex.Replace(current, sourceRegex, x => converter.Replacement(x.Groups["content"].Value))));
+						Regex.Replace(current, sourceRegex, x => converter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value)))));
+		}
+
+		private IDictionary<string, string> CreateAttributes(string attributes)
+		{
+			return AttributeRegex.Matches(attributes)
+				.OfType<Match>()
+				.ToDictionary(x => x.Groups["name"].Value, x => x.Groups["value"].Value);
 		}
 	}
 }
