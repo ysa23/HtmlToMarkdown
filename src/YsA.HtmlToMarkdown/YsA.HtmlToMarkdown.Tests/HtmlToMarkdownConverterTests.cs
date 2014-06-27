@@ -162,5 +162,35 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("\n\nSome content\nnew line\nanother new line\n"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsStrongTags_ReplaceWithAsteriks()
+		{
+			const string html = "Some <strong>content</strong>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some **content**"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsBoldTags_ReplaceWithAsteriks()
+		{
+			const string html = "Some <b>content</b>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some **content**"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenBoldTagsHasEmptyContent_RemoveTags()
+		{
+			const string html = "Some <b></b>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some "));
+		}
 	}
 }

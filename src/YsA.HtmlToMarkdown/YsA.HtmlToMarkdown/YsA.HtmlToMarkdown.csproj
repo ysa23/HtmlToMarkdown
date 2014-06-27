@@ -35,6 +35,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HtmlTagConverters\BoldTagConverter.cs" />
     <Compile Include="HtmlTagConverters\IHtmlTagConverter.cs" />
     <Compile Include="HtmlTagConverters\ImageTagConverter.cs" />
     <Compile Include="HtmlTagConverters\ISelfClosingTag.cs" />

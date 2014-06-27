@@ -25,7 +25,8 @@ namespace YsA.HtmlToMarkdown
 				new ParagraphTagConverter(),
 				new LinkTagConverter(),
 				new ImageTagConverter(),
-				new LineBreakTagConverter()
+				new LineBreakTagConverter(),
+				new BoldTagConverter()
 			};
 		}
 
