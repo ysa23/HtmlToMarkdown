@@ -2,12 +2,12 @@
 
 namespace YsA.HtmlToMarkdown.HtmlTagConverters
 {
-	public class BoldTagConverter : IHtmlTagConverter, IRemoveWhenEmpty
+	public class EmphasisTagConverter : IHtmlTagConverter, IRemoveWhenEmpty
 	{
-		public string[] TagPattern { get { return new[] {"strong", "b"}; } }
+		public string[] TagPattern { get { return new[] {"em", "i"}; }}
 		public string Replacement(string innerHtml, IDictionary<string, string> attributes)
 		{
-			return "**" + innerHtml + "**";
+			return "_" + innerHtml + "_";
 		}
 	}
 }

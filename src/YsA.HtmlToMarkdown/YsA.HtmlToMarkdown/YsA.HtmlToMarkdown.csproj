@@ -36,8 +36,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlTagConverters\BoldTagConverter.cs" />
+    <Compile Include="HtmlTagConverters\EmphasisTagConverter.cs" />
     <Compile Include="HtmlTagConverters\IHtmlTagConverter.cs" />
     <Compile Include="HtmlTagConverters\ImageTagConverter.cs" />
+    <Compile Include="HtmlTagConverters\IRemoveWhenEmpty.cs" />
     <Compile Include="HtmlTagConverters\ISelfClosingTag.cs" />
     <Compile Include="HtmlTagConverters\LineBreakTagConverter.cs" />
     <Compile Include="HtmlTagConverters\LinkTagConverter.cs" />

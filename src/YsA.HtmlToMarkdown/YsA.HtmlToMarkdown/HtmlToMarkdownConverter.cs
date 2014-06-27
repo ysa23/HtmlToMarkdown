@@ -26,7 +26,8 @@ namespace YsA.HtmlToMarkdown
 				new LinkTagConverter(),
 				new ImageTagConverter(),
 				new LineBreakTagConverter(),
-				new BoldTagConverter()
+				new BoldTagConverter(),
+				new EmphasisTagConverter()
 			};
 		}
 
@@ -40,7 +41,9 @@ namespace YsA.HtmlToMarkdown
 				foreach (var tagRegex in converter.TagPattern.Select(x => string.Format(GetPatternFormat(innerConverter), x)))
 				{
 					markdown = Regex.Replace(markdown, tagRegex,
-						x => innerConverter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value)));
+						x => innerConverter is IRemoveWhenEmpty && string.IsNullOrEmpty(x.Groups["content"].Value) ? 
+							string.Empty : 
+							innerConverter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value)));
 				}
 			}
 

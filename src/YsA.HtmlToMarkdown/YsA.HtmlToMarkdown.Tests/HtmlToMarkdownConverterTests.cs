@@ -192,5 +192,35 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("Some "));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsEmphasisTags_ReplaceWithUnderscore()
+		{
+			const string html = "Some <em>content</em>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some _content_"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsItalicTags_ReplaceWithUnderscore()
+		{
+			const string html = "Some <i>content</i>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some _content_"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenEmphasisTagsHasNoContent_RemoveIt()
+		{
+			const string html = "Some <em></em>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some "));
+		}
 	}
 }
