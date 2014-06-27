@@ -34,6 +34,16 @@ namespace YsA.HtmlToMarkdown.Tests
 		}
 
 		[Test]
+		public void ToMarkdown_WhenParagraphHasNoContent_ReturnsEmpty()
+		{
+			const string html = "<p></p>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.Empty);
+		}
+
+		[Test]
 		public void ToMarkdown_WhenHtmlContainLinkTag_ReplaceLinkTagWithMarkdownLink()
 		{
 			const string html = "<a href='http://blog.house-of-code.com'>Link title</a>";
@@ -61,6 +71,16 @@ namespace YsA.HtmlToMarkdown.Tests
 			var result = _target.ToMarkdown(html);
 
 			Assert.That(result, Is.EqualTo("Link title"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenLinkHasNoContent_RetrunOnlyLink()
+		{
+			const string html = "<a href=\"http://blog.house-of-code.com\"></a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("http://blog.house-of-code.com"));
 		}
 
 		[Test]

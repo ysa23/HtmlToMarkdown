@@ -12,6 +12,9 @@ namespace YsA.HtmlToMarkdown.HtmlTagConverters
 			if (!attributes.ContainsKey("href"))
 				return innerHtml;
 
+			if (string.IsNullOrEmpty(innerHtml))
+				return attributes["href"];
+
 			return string.Format(LinkMarkdownFormat, innerHtml, attributes["href"]);
 		}
 	}

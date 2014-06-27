@@ -8,7 +8,7 @@ namespace YsA.HtmlToMarkdown.HtmlTagConverters
 
 		public string Replacement(string innerHtml, IDictionary<string, string> attributes)
 		{
-			return "\n\n" + innerHtml + "\n";
+			return string.IsNullOrEmpty(innerHtml) ? string.Empty : "\n\n" + innerHtml + "\n";
 		}
 	}
 }
