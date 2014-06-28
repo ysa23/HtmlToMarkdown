@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace YsA.HtmlToMarkdown.HtmlTagConverters
 {
@@ -7,7 +8,8 @@ namespace YsA.HtmlToMarkdown.HtmlTagConverters
 		private const string LinkMarkdownFormat = "[{0}]({1})";
 
 		public string[] TagPattern { get { return new[] {"a"}; } }
-		public string Replacement(string innerHtml, IDictionary<string, string> attributes)
+
+		public string Replacement(string innerHtml, IDictionary<string, string> attributes, Match tagMatch)
 		{
 			if (!attributes.ContainsKey("href"))
 				return innerHtml;

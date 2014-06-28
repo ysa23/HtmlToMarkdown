@@ -222,5 +222,25 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("Some "));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenHtmlContainsHeaderTags_ReplaceWithPound()
+		{
+			const string html = "<h1>header1</h1> Text <h2>header2</h2> Text";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("\n\n# header1\n Text \n\n## header2\n Text"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenHeaderTagHasNoContent_RemoveIt()
+		{
+			const string html = "<h1></h1> Text <h2></h2> Text";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo(" Text  Text"));
+		}
 	}
 }

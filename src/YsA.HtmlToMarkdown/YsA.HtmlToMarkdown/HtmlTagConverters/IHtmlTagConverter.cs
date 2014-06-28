@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace YsA.HtmlToMarkdown.HtmlTagConverters
 {
@@ -6,6 +7,6 @@ namespace YsA.HtmlToMarkdown.HtmlTagConverters
 	{
 		string[] TagPattern { get; }
 
-		string Replacement(string innerHtml, IDictionary<string, string> attributes);
+		string Replacement(string innerHtml, IDictionary<string, string> attributes, Match tagMatche);
 	}
 }
