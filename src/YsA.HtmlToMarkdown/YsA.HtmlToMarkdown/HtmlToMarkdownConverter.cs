@@ -44,7 +44,7 @@ namespace YsA.HtmlToMarkdown
 					markdown = Regex.Replace(markdown, tagRegex,
 						x => innerConverter is IRemoveWhenEmpty && string.IsNullOrEmpty(x.Groups["content"].Value) ? 
 							string.Empty : 
-							innerConverter.Replacement(x.Groups["content"].Value, CreateAttributes(x.Groups["attributes"].Value), x));
+							innerConverter.Replacement(x.Groups["content"].Value.Trim(), CreateAttributes(x.Groups["attributes"].Value), x));
 				}
 			}
 

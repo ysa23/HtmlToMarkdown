@@ -262,5 +262,15 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo("[Link](http://link.com?id=1234)"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenTagContentHasLeadingSpaces_RemoveThem()
+		{
+			const string html = "Some <p> text </p>here";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("Some \n\ntext\nhere"));
+		}
 	}
 }
