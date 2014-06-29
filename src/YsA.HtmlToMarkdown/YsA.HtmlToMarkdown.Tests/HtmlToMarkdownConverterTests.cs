@@ -242,5 +242,25 @@ namespace YsA.HtmlToMarkdown.Tests
 
 			Assert.That(result, Is.EqualTo(" Text  Text"));
 		}
+
+		[Test]
+		public void ToMarkdown_WhenAttributeContainsUnderscore_ParseAttributesCorrectly()
+		{
+			const string html = "<a href=\"http://link.com?id=1234\" mce_href=\"http://link2.com\">Link</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("[Link](http://link.com?id=1234)"));
+		}
+
+		[Test]
+		public void ToMarkdown_WhenAttributeContainsDash_ParseAttributesWithDash()
+		{
+			const string html = "<a href=\"http://link.com?id=1234\" data-href=\"some data\">Link</a>";
+
+			var result = _target.ToMarkdown(html);
+
+			Assert.That(result, Is.EqualTo("[Link](http://link.com?id=1234)"));
+		}
 	}
 }
